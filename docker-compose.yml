@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  planmate-app:
+    container_name: angular-container
+    build: ./
+    ports:
+      - 127.0.0.1:4200:80 # Mapping on Port 80 (container) as this is the standard port for nginx
+    depends_on:
+      - node-rest-api
+    restart: "no"
+
+  node-rest-api:
+    container_name: node-rest-api-container
+    build: ./src/api
+    restart: "no"
+    depends_on:
+      - postgres
+    ports:
+      - 127.0.0.1:3080:3080  
+
+  postgres:
+    container_name: postgres-container
+    build: ./src/database
+    restart: "no"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./planmate-db/:/var/lib/postgresql/data
+
+  database-management:
+    image: adminer
+    container_name: database-management-container
+    restart: always
+    ports:
+      - "8080:8080"
+
+volumes:
+  planmate-db:

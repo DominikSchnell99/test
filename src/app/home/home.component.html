@@ -1,0 +1,20 @@
+<h1>Ich wurde {{clickCounter}} mal geklickt</h1>
+<button type="button" class="btn btn-primary" (click)="click()">
+    {{title}}
+ </button>
+
+ <div class="example-container">
+    <mat-form-field appearance="fill">
+      <input matInput placeholder="max@mustermann.de" [formControl]="email" required>
+      <mat-label>E-Mail</mat-label>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" required>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+      </mat-form-field>
+  </div>
